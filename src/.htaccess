@@ -1,0 +1,14 @@
+# Angular SPA routing (Apache)
+# Requires: mod_rewrite enabled, AllowOverride All (or at least AllowOverride FileInfo)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Don't rewrite real files/directories
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # All other requests go to the SPA entrypoint
+  RewriteRule ^ index.html [L]
+</IfModule>
