@@ -133,12 +133,77 @@ This repo includes `src/.htaccess`, and `angular.json` copies it into `dist/` au
 
 ## Local dev notes
 
-### Custom hostname
+## Preview `dist/` via Apache or IIS (local)
 
-`npm start` uses `--host angularcliapp.localhost`. If you want that hostname to resolve on Windows, add this line to your hosts file:
+Sometimes you want to test the **real production build output** locally (what you would upload to a server).
+
+1) Build the production output:
+
+```bash
+npm run build:prod
+```
+
+2) Point your web server site root at `dist/2020AngularCLIApp/`.
+
+### Apache
+
+Apache will use `.htaccess` in the site root. This repo includes `src/.htaccess` and the build copies it into `dist/`.
+
+#### XAMPP (recommended: VirtualHost at site root)
+
+This is the cleanest way to preview the production build because the app is served from `/` (no base-href changes needed), and Angular deep links work via the built `.htaccess`.
+
+1) Build:
+
+```bash
+npm run build:prod
+```
+
+2) Add a VirtualHost in XAMPP:
+
+- File: `C:\xampp\apache\conf\extra\httpd-vhosts.conf`
+- Add (adjust the `DocumentRoot` path if your checkout lives elsewhere):
+
+```apache
+<VirtualHost *:80>
+  ServerName 2020angularcliapp.localhost
+  DocumentRoot "D:/Websites/2026FCJamison/projects/2020AngularCLIApp/dist/2020AngularCLIApp"
+
+  <Directory "D:/Websites/2026FCJamison/projects/2020AngularCLIApp/dist/2020AngularCLIApp">
+    Require all granted
+    AllowOverride All
+  </Directory>
+</VirtualHost>
+```
+
+3) Ensure Apache loads vhosts + rewrite:
+
+- In `C:\xampp\apache\conf\httpd.conf`, make sure these lines are enabled (not commented):
+  - `LoadModule rewrite_module modules/mod_rewrite.so`
+  - `Include conf/extra/httpd-vhosts.conf`
+
+4) Add Windows hosts entry:
 
 - File: `C:\Windows\System32\drivers\etc\hosts`
-- Entry: `127.0.0.1 angularcliapp.localhost`
+- Entry: `127.0.0.1 2020angularcliapp.localhost`
+
+5) Restart Apache in XAMPP Control Panel.
+
+6) Open `http://2020angularcliapp.localhost/` (or run the VS Code task “Open dist preview (Apache/IIS)”).
+
+### IIS
+
+IIS needs a `web.config` rewrite rule to support Angular client-side routes.
+
+- This repo includes `src/web.config`, and the build copies it into `dist/`.
+- IIS requires the **URL Rewrite** module installed/enabled for the rewrite rule to work.
+
+### Custom hostname
+
+`npm start` uses `--host 2020angularcliapp.localhost`. If you want that hostname to resolve on Windows, add this line to your hosts file:
+
+- File: `C:\Windows\System32\drivers\etc\hosts`
+- Entry: `127.0.0.1 2020angularcliapp.localhost`
 
 If you don’t need the custom host, use `npm run start:local`.
 

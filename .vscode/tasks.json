@@ -1,0 +1,498 @@
+{
+	"version": "2.0.0",
+	"inputs": [
+		{
+			"id": "distPreviewUrl",
+			"type": "promptString",
+			"description": "Dist preview URL (served by Apache/IIS)",
+			"default": "http://2020angularcliapp.localhost/"
+		}
+	],
+	"tasks": [
+		{
+			"label": "Open dist preview (Apache/IIS)",
+			"type": "shell",
+			"command": "start",
+			"args": [
+				"chrome",
+				"${input:distPreviewUrl}"
+			],
+			"presentation": {
+				"reveal": "never",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Build (prod) + open dist preview",
+			"dependsOn": [
+				"Build (prod)",
+				"Open dist preview (Apache/IIS)"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": []
+		},
+		{
+			"label": "Open in Browser",
+			"type": "shell",
+			"command": "start",
+			"args": [
+				"chrome",
+				"http://2020angularcliapp.localhost/"
+			],
+			"presentation": {
+				"reveal": "never",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Open dev server (ng serve)",
+			"type": "shell",
+			"command": "start",
+			"args": [
+				"chrome",
+				"http://2020angularcliapp.localhost:4200/"
+			],
+			"presentation": {
+				"reveal": "never",
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Test: unit (CI)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:unit:ci"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Build",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build (prod)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build:prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Test: e2e (Playwright)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:e2e"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "List test-results",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"dir",
+				"/a",
+				"test-results"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test: unit (CI) - recheck",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:unit:ci"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "git status porcelain",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "restore app.component.html",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"restore",
+				"--source=HEAD",
+				"--worktree",
+				"--staged",
+				"src/app/app.component.html"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm install package-lock-only",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"install",
+				"--package-lock-only"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git status porcelain 2",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm test unit ci",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:unit:ci"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm test e2e",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:e2e"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Git Restore app.component.html",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"cd /d \"d:\\Websites\\2026FCJamison\\projects\\2020AngularCLIApp\" && git restore --source=HEAD --worktree --staged \"src/app/app.component.html\" && git status --porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "npm: update lockfile",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"install",
+				"--package-lock-only"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git: status porcelain",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: test unit ci",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:unit:ci"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "npm: test unit ci (retry)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:unit:ci"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "git: restore app.component.html",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"restore",
+				"src/app/app.component.html"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: status porcelain (after restore)",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: diff app.component.html (baseline)",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--",
+				"src/app/app.component.html"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: diff app.component.html (after)",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--",
+				"src/app/app.component.html"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: status porcelain",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: view build-angular peerDeps",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"view",
+				"@angular-devkit/build-angular@21.0.4",
+				"peerDependencies",
+				"peerDependenciesMeta",
+				"--json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: view latest angular devkit version",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"view",
+				"@angular-devkit/build-angular",
+				"version"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: view build-angular@21.1.0 peerDeps",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"view",
+				"@angular-devkit/build-angular@21.1.0",
+				"peerDependencies",
+				"peerDependenciesMeta",
+				"--json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: view angular@21.1.0 version",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"view",
+				"@angular/core@21.1.0",
+				"version"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: build prod",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build:prod"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git: status porcelain (final)",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: test e2e (playwright)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:e2e"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "npm: test e2e (playwright) - rerun for final status",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"test:e2e"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "git: diff README",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--",
+				"README.md"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: status (pre-push)",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: add all",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"-A"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: commit",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"2026 cleanup: remove Protractor, update tests/docs"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: push",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: status (post-push)",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "git: status porcelain",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--porcelain"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
