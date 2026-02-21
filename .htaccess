@@ -1,0 +1,16 @@
+Options -Indexes
+
+RewriteEngine On
+
+# Serve the Angular build output from /dist/2020AngularCLIApp
+# This makes http://angularcliapplication.localhost/ load the app even if Apache's DocumentRoot is the repo root.
+
+# If the request maps to an existing file/dir under dist, serve it
+RewriteCond %{REQUEST_URI} !^/dist/2020AngularCLIApp/
+RewriteCond %{DOCUMENT_ROOT}/dist/2020AngularCLIApp/$1 -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/dist/2020AngularCLIApp/$1 -d
+RewriteRule ^(.*)$ dist/2020AngularCLIApp/$1 [L]
+
+# Otherwise, fall back to the SPA entrypoint
+RewriteCond %{REQUEST_URI} !^/dist/2020AngularCLIApp/
+RewriteRule ^ dist/2020AngularCLIApp/index.html [L]
